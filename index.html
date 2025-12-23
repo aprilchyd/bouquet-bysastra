@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bouquet By Sastra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* --- TEMA "DARK LUXE FUTURISTIC" dengan Background Baru --- */
+    :root {
+      /* Color Palette: Dark Luxe with Futuristic Pink-Purple Gradient */
+      --bg-dark: #0f0f0f;            /* Background utama yang sangat gelap */
+      --bg-card: rgba(255, 255, 255, 0.1); /* Kartu semi-transparan yang sedikit lebih terang */
+      --text-primary: #f4f4f4;       /* Teks utama berwarna terang */
+      --text-secondary: #b0b0b0;     /* Teks sekunder lebih redup */
+      --accent-gradient: linear-gradient(135deg, #e83e8c 0%, #9c27b0 100%); /* Gradien aksen utama */
+      --accent-color: #e83e8c;       /* Warna aksen solid (pink) */
+      --font-primary: 'Poppins', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      color: var(--text-primary);
+      /* Background gambar taman bunga dengan overlay gelap */
+      background: linear-gradient(rgba(15, 15, 15, 0.85), rgba(15, 15, 15, 0.85)),
+                  url('images/bg-garden.jpg') no-repeat center center/cover;
+      background-attachment: fixed; /* Efek parallax */
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      font-weight: 600;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* --- HEADER & NAVIGASI --- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(15, 15, 15, 0.9); /* Efek kaca blur */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: var(--font-serif);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      position: relative;
+      font-size: 1.05rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      padding: 14rem 0 7rem;
+      text-align: center;
+      position: relative;
+      /* Background gambar dengan overlay gelap */
+      background: linear-gradient(rgba(15, 15, 15, 0.5), rgba(15, 15, 15, 0.7)),
+                  url('images/hero-bg.jpg') no-repeat center center/cover;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--accent-gradient);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid transparent;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(232, 62, 140, 0.4);
+    }
+
+    /* --- SECTION STYLING --- */
+    section {
+      padding: 6rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* --- KATALOG PRODUK --- */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .category-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.2); /* Border sedikit lebih terang */
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .category-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(232, 62, 140, 0.3);
+      border-color: var(--accent-color);
+    }
+
+    .category-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .category-info {
+      padding: 1.5rem;
+    }
+
+    .category-info h3 {
+      margin-bottom: 0.75rem;
+      font-size: 1.4rem;
+      color: var(--text-primary);
+    }
+
+    .category-info p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--accent-color);
+      font-size: 1.1rem;
+      display: block;
+    }
+
+    /* --- BEST SELLER GALLERY --- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      height: 260px;
+      box-shadow: 0 8px 25px rgba(142, 125, 190, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(232, 62, 140, 0.25);
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* --- CARA ORDER --- */
+    .steps {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .step {
+      text-align: center;
+      width: 180px;
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      background: var(--accent-gradient);
+      color: white;
+      border-radius: 50%;
+      font-weight: 700;
+      margin: 0 auto 1.25rem;
+      font-size: 1.5rem;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+    }
+
+    .step h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+
+    .step p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* --- TESTIMONI --- */
+    .testimonials {
+      background: rgba(0, 0, 0, 0.3); /* Sedikit lebih terang dari bg-dark */
+      padding: 5rem 0;
+    }
+
+    .marquee {
+      display: flex;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-content {
+      display: flex;
+      padding: 1.5rem 0;
+      animation: scroll 30s linear infinite;
+    }
+
+    .marquee-content:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .testimonial {
+      display: inline-block;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      margin: 0 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(232, 62, 140, 0.1);
+      min-width: 320px;
+      text-align: center;
+      font-style: italic;
+      font-weight: 300;
+      position: relative;
+    }
+
+    /* --- LOKASI --- */
+    .location-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .address {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .address h3 {
+      margin-bottom: 1.25rem;
+      color: var(--accent-color);
+      font-size: 1.5rem;
+    }
+
+    .address p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .map-container {
+      flex: 2;
+      min-width: 320px;
+      height: 360px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(142, 125, 190, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+      color: white;
+      padding: 3.5rem 0 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-family: var(--font-serif);
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .social-links a {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: color 0.3s, background 0.3s;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-color);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 1rem;
+    }
+
+    /* --- FLOATING WHATSAPP --- */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      width: 70px;
+      height: 70px;
+      background: #25D366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+      z-index: 999;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.15) rotate(12deg);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+    }
+
+    .whatsapp-float i {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* --- RESPONSIVE DESIGN --- */
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 15, 15, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 1.5rem 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        display: none;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .steps {
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 12rem 0 5rem;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">bouquet.by sstr</div>
+      <button class="mobile-menu-btn" onclick="toggleMenu()">
+        <i data-lucide="menu"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#catalog" onclick="scrollToSection('catalog')">Katalog</a>
+        <a href="#how-to-order" onclick="scrollToSection('how-to-order')">Cara Order</a>
+        <a href="#location" onclick="scrollToSection('location')">Lokasi</a>
+        <a href="#testimonials" onclick="scrollToSection('testimonials')">Testimoni</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Keindahan Abadi dalam Setiap Helai</h1>
+      <p>Buket estetik premium dengan sentuhan futuristik yang memikat hati</p>
+      <a href="#catalog" class="btn" onclick="scrollToSection('catalog')">Lihat Koleksi</a>
+    </div>
+  </section>
+
+  <!-- Katalog -->
+  <section id="catalog" class="catalog">
+    <div class="container">
+      <h2 class="section-title">Koleksi Kami</h2>
+      <div class="categories">
+        <div class="category-card">
+          <img src="images/product-money.jpg" alt="Money Bouquet" class="category-img">
+          <div class="category-info">
+            <h3>Money Bouquet</h3>
+            <p>Dari jumlah kecil hingga desain jumbo/menara yang spektakuler</p>
+            <span class="price">Mulai dari Rp 75.000</span>
+          </div>
+        </div>
+        <div class="category-card">
+          <img src="images/product-gift.jpg" alt="Snack & Gift Bouquet" class="category-img">
+          <div class="category-info">
+            <h3>Snack & Gift</h3>
+            <p>Perpaduan jajanan premium dengan wrapping yang elegan</p>
+            <span class="price">Mulai dari Rp 85.000</span>
+          </div>
+        </div>
+        <div class="category-card">
+          <img src="images/product-satin.jpg" alt="Satin & Artificial Flower" class="category-img">
+          <div class="category-info">
+            <h3>Satin Flowers</h3>
+            <p>Bunga kain premium yang awet selamanya dengan gaya Korea</p>
+            <span class="price">Mulai dari Rp 120.000</span>
+          </div>
+        </div>
+        <div class="category-card">
+          <img src="images/product-balloon.jpg" alt="Hot Air Balloon Bouquet" class="category-img">
+          <div class="category-info">
+            <h3>Hot Air Balloon</h3>
+            <p>Buket unik di dalam balon transparan yang memukau</p>
+            <span class="price">Mulai dari Rp 250.000</span>
+          </div>
+        </div>
+        <div class="category-card">
+          <img src="images/product-wedding.jpg" alt="Wedding/Engagement Bouquet" class="category-img">
+          <div class="category-info">
+            <h3>Wedding Bouquet</h3>
+            <p>Buket tangan eksklusif untuk momen pernikahanmu</p>
+            <span class="price">Mulai dari Rp 300.000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Seller -->
+  <section class="best-seller">
+    <div class="container">
+      <h2 class="section-title">Best Seller</h2>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="images/product-satin.jpg" alt="Best Seller 1" class="gallery-img">
+        </div>
+        <div class="gallery-item">
+          <img src="images/product-gift.jpg" alt="Best Seller 2" class="gallery-img">
+        </div>
+        <div class="gallery-item">
+          <img src="images/product-wedding.jpg" alt="Best Seller 3" class="gallery-img">
+        </div>
+        <div class="gallery-item">
+          <img src="images/product-money.jpg" alt="Best Seller 4" class="gallery-img">
+        </div>
+        <div class="gallery-item">
+          <img src="images/product-balloon.jpg" alt="Best Seller 5" class="gallery-img">
+        </div>
+        <div class="gallery-item">
+          <img src="images/product-satin.jpg" alt="Best Seller 6" class="gallery-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cara Order -->
+  <section id="how-to-order" class="how-to-order">
+    <div class="container">
+      <h2 class="section-title">Cara Order</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Pilih Produk</h3>
+          <p>Pilih dari katalog koleksi kami yang memikat</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Konsultasi WA</h3>
+          <p>Kirim pesan via WhatsApp untuk detail custom</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Transfer</h3>
+          <p>Lakukan pembayaran sesuai kesepakatan</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Kirim/Ambil</h3>
+          <p>Kami kirim atau kamu bisa ambil langsung</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimoni -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <h2 class="section-title">Apa Kata Mereka?</h2>
+      <div class="marquee">
+        <div class="marquee-content">
+          <div class="testimonial">"Gilaaa sih ini wrappingnya rapi bgt! Padahal request mepet tapi hasilnya tetep cakep parah."</div>
+          <div class="testimonial">"Buket uangnya aman bgt nyampe sini, gak ada yang lecek. Mana dapet free kartu ucapan yang lucu lagi!"</div>
+          <div class="testimonial">"Jujurly awalnya ragu pesen bunga satin, tapi pas dateng kok malah keliatan kayak bunga asli ya? Mewah bgt!"</div>
+          <div class="testimonial">"Gak nyesel langganan di sstr. Harganya masuk di kantong pelajar tapi look-nya kayak buket mahal jutaan."</div>
+          <div class="testimonial">"Buket snacknya penuh bgt gak pelit, gak ada yang kopong di tengah. Cocok bgt buat kado wisuda temen."</div>
+          <div class="testimonial">"Visualnya dapet bgt! Korean style-nya dapet, warnanya soft bgt sesuai yang aku mau."</div>
+          <div class="testimonial">"Pengiriman cepet bgt, pagi pesen siang udah sampe. Penyelamat bgt buat yang pelupa kado."</div>
+          <div class="testimonial">"Duhh ini balonnya gede bgt, estetik parah buat foto-foto. Temen aku ampe nanya beli di mana!"</div>
+        </div>
+        <div class="marquee-content" aria-hidden="true">
+          <div class="testimonial">"Gilaaa sih ini wrappingnya rapi bgt! Padahal request mepet tapi hasilnya tetep cakep parah."</div>
+          <div class="testimonial">"Buket uangnya aman bgt nyampe sini, gak ada yang lecek. Mana dapet free kartu ucapan yang lucu lagi!"</div>
+          <div class="testimonial">"Jujurly awalnya ragu pesen bunga satin, tapi pas dateng kok malah keliatan kayak bunga asli ya? Mewah bgt!"</div>
+          <div class="testimonial">"Gak nyesel langganan di sstr. Harganya masuk di kantong pelajar tapi look-nya kayak buket mahal jutaan."</div>
+          <div class="testimonial">"Buket snacknya penuh bgt gak pelit, gak ada yang kopong di tengah. Cocok bgt buat kado wisuda temen."</div>
+          <div class="testimonial">"Visualnya dapet bgt! Korean style-nya dapet, warnanya soft bgt sesuai yang aku mau."</div>
+          <div class="testimonial">"Pengiriman cepet bgt, pagi pesen siang udah sampe. Penyelamat bgt buat yang pelupa kado."</div>
+          <div class="testimonial">"Duhh ini balonnya gede bgt, estetik parah buat foto-foto. Temen aku ampe nanya beli di mana!"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lokasi -->
+  <section id="location" class="location">
+    <div class="container">
+      <h2 class="section-title">Kunjungi Studio Kami</h2>
+      <div class="location-content">
+        <div class="address">
+          <h3><i data-lucide="map-pin"></i> Alamat</h3>
+          <p><strong>Bouquet By Sastra</strong><br>Cibinong, Bogor, Jawa Barat</p>
+          <p><strong>Jam Operasional:</strong><br>Senin - Sabtu: 09.00 - 18.00</p>
+          <a href="https://wa.me/6285719215698" class="btn" style="margin-top: 1.5rem; display: inline-block;">Hubungi via WhatsApp</a>
+        </div>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.384521379205!2d106.82035827484597!3d-6.486915493548429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x85803334f2083c81!2sBouquet%20By%20Sastra!5e0!3m2!1sen!2sid!4v1719576725813!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">bouquet.by sstr</div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/bouquet.bysstr" target="_blank">Instagram</a>
+        </div>
+        <div class="copyright">
+          &copy; 2025 Bouquet By Sastra. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/6285719215698?text=Halo%20Admin%20%40bouquet.bysstr%2C%20saya%20tertarik%20dengan%20produk%20yang%20saya%20lihat%20di%20website.%20Bisa%20minta%20info%20detailnya%3F" class="whatsapp-float" target="_blank">
+    <i data-lucide="phone"></i>
+  </a>
+
+  <script>
+    // Load Lucide icons
+    lucide.createIcons();
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('active');
+    }
+
+    // Smooth scroll function
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        window.scrollTo({
+          top: element.offsetTop - 90, // Adjust for fixed header height
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
